@@ -1,0 +1,13 @@
+environment = "dev"
+vpc_cidr = "10.0.0.0/16"
+vpc_tags = {}
+internet_gateway_tags = {}
+public_subnet_cidr = ["10.0.0.0/20", "10.0.16.0/20"]
+private_subnet_cidr = ["10.0.128.0/20", "10.0.144.0/20"]
+availability_zone = []
+map_public_ip_on_launch = true
+public_subnet_tags = {}
+private_subnet_tags = {}
+public_rtb_cidr = ["0.0.0.0/0"]
+public_rtb_tags = {}
+nat_gateway_tags = {}
