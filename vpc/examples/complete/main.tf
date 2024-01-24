@@ -38,6 +38,9 @@ module "vpc" {
   eip_tags = {
     Name = "ayodele-eip"
   }
+  default_rtb_tags = {
+    Name = "ayodele-default-rtb"
+  }
 }
 
 variable "region" {
