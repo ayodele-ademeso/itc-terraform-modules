@@ -1,7 +1,7 @@
 variable "environment" {
   description = "Name of the environment we are creating resources"
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "region" {

@@ -109,7 +109,7 @@ resource "aws_route_table_association" "public02" {
 
 # Create 1 NAT Gateway (Not needed yet if resources will not be created in a private subnet)
 resource "aws_eip" "nat" {
-  domain   = "vpc"
+  domain     = "vpc"
   depends_on = [aws_internet_gateway.gw]
   tags = merge(
     var.eip_tags,
@@ -118,8 +118,8 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_nat_gateway" "ngw" {
-  subnet_id = aws_subnet.public01.id
-  allocation_id                  = aws_eip.nat.id
+  subnet_id     = aws_subnet.public01.id
+  allocation_id = aws_eip.nat.id
 
   tags = merge(
     var.nat_gateway_tags,
