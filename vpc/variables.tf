@@ -58,6 +58,12 @@ variable "eip_tags" {
   default     = {}
 }
 
+variable "default_rtb_tags" {
+  description = "Custom tags for default route table"
+  type        = map(string)
+  default     = {}
+}
+
 variable "public01_subnet_cidr" {
   description = "CIDR for public subnets"
   type        = string

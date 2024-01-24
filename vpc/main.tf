@@ -30,6 +30,18 @@ resource "aws_internet_gateway" "gw" {
   )
 }
 
+# remove default routes in default route table
+resource "aws_default_route_table" "rtb" {
+  default_route_table_id = aws_vpc.main.default_route_table_id
+
+  route = []
+
+  tags = merge(
+    var.default_rtb_tags,
+    local.common_tags
+  )
+}
+
 # Create Subnets (2 private, 2 public)
 resource "aws_subnet" "public01" {
   vpc_id                  = aws_vpc.main.id
