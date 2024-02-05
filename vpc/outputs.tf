@@ -1,24 +1,19 @@
 output "vpc-id" {
   description = "ID of the created VPC"
-  value       = aws_vpc.main.id
+  value       = try(aws_vpc.this[0].id, null)
 }
 
-output "public01_subnet_id" {
-  description = "The ID of public subnet in Availability Zone"
-  value       = aws_subnet.public01.id
+output "public_subnets" {
+  description = "List of ID of public subnets"
+  value       = var.create_vpc && length(var.public_subnets) > 0 ? aws_subnet.public[*].id : []
 }
 
-output "public02_subnet_id" {
-  description = "The ID of public subnet in Availability Zone"
-  value       = aws_subnet.public02.id
+output "private_subnets" {
+  description = "List of ID of private subnets"
+  value       = var.create_vpc && length(var.public_subnets) > 0 ? aws_subnet.private[*].id : []
 }
 
-output "private01_subnet_id" {
-  description = "The ID of public subnet in Availability Zone"
-  value       = aws_subnet.private01.id
-}
-
-output "private02_subnet_id" {
-  description = "The ID of public subnet in Availability Zone"
-  value       = aws_subnet.private02.id
+output "name" {
+  description = "The name of the VPC."
+  value       = var.name
 }
