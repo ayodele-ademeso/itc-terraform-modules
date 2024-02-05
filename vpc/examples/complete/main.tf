@@ -1,49 +1,30 @@
 module "vpc" {
-  source      = "../../"
-  environment = "dev"
-  region      = "eu-west-2"
-  vpc_cidr    = "10.0.0.0/16"
-  vpc_tags = {
-    Name = "ayodele-vpc"
-  }
-  internet_gateway_tags = {
-    Name = "ayodele-igw"
-  }
-  public01_subnet_cidr        = "10.0.0.0/20"
-  public02_subnet_cidr        = "10.0.16.0/20"
-  private01_subnet_cidr       = "10.0.128.0/20"
-  private02_subnet_cidr       = "10.0.144.0/20"
-  public01_availability_zone  = "eu-west-2a"
-  public02_availability_zone  = "eu-west-2c"
-  private01_availability_zone = "eu-west-2b"
-  private02_availability_zone = "eu-west-2c"
-  map_public_ip_on_launch     = true
-  public_subnet_tags = {
-    Name = "ayodele-public-subnet"
-  }
-  private_subnet_tags = {
-    Name = "ayodele-private-subnet"
-  }
-  public_rtb_cidr  = "0.0.0.0/0"
-  private_rtb_cidr = "0.0.0.0/0"
-  public_rtb_tags = {
-    Name = "ayodele-public-rtb"
-  }
-  private_rtb_tags = {
-    Name = "ayodele-private-rtb"
-  }
-  nat_gateway_tags = {
-    Name = "ayodele-nat-gateway"
-  }
-  eip_tags = {
-    Name = "ayodele-eip"
-  }
-  default_rtb_tags = {
-    Name = "ayodele-default-rtb"
-  }
+  source          = "../../"
+  environment     = "dev"
+  region          = "eu-west-2"
+  create_vpc      = true
+  vpc_cidr        = "10.0.0.0/16"
+  name            = "ayodele"
+  owner           = "Ayodele-UK"
+  azs             = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+  public_subnets  = ["10.0.0.0/20", "10.0.16.0/20"]
+  private_subnets = ["10.0.128.0/20", "10.0.144.0/20"]
+
+  map_public_ip_on_launch = true
+  enable_nat_gateway      = true
+  single_nat_gateway      = true
+  enable_dns_hostnames    = true
 }
 
 variable "region" {
-  description = "The region where the VPC will be created."
+  description = "Specify this to configure aws provider."
   default     = "eu-west-2"
+}
+
+output "private_subnet_ids" {
+  value = module.vpc.private_subnets
+}
+
+output "public_subnet_ids" {
+  value = module.vpc.public_subnets
 }
